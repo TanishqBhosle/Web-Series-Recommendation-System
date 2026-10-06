@@ -1,0 +1,13 @@
+# Place Google Colab exported model artifacts in this directory:
+# - cbf_indices.npy
+# - cbf_scores.npy
+# - cf_indices.npy
+# - cf_scores.npy
+# - tfidf_vectorizer.pkl
+# - movie_id_to_index.pkl
+# - index_to_movie_id.pkl
+# - rating_counts.pkl
+# - user_rating_counts.pkl
+# - movies.csv
+# - metrics.json
+# - config.json
