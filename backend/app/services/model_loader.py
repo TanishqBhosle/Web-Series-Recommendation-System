@@ -122,8 +122,15 @@ class ModelStore:
             if os.path.exists(tfidf_path):
                 self.tfidf_vectorizer = joblib.load(tfidf_path)
 
-            # 3. Load movies DataFrame
+            # 3. Load movies DataFrame and fast metadata map
             self.movies_df = pd.read_csv(os.path.join(target_dir, "movies.csv"))
+            self.movie_meta = {
+                int(row["movieId"]): {
+                    "title": str(row["title"]),
+                    "genres": str(row.get("genres", ""))
+                }
+                for _, row in self.movies_df.iterrows()
+            }
 
             # 4. Load JSON metadata
             with open(os.path.join(target_dir, "metrics.json"), "r", encoding="utf-8") as f:

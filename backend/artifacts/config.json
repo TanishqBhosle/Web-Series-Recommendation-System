@@ -1,0 +1,10 @@
+{
+    "alpha": 0.5,
+    "top_n": 50,
+    "recommendation_k": 5,
+    "user_cold_start_threshold": 3,
+    "item_cold_start_threshold": 5,
+    "relevant_rating_threshold": 4.0,
+    "method": "Hybrid CBF + CF",
+    "similarity": "Pearson Correlation"
+}

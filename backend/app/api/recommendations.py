@@ -27,6 +27,12 @@ def enrich_recommendations(
             genres = [g.strip() for g in movie.genres.split("|")] if movie.genres else []
             poster_url = movie.poster_url or get_poster_for_movie(title, movie.genres)
             overview = movie.overview or get_overview_for_movie(title, movie.genres)
+        elif m_id in getattr(model_store, "movie_meta", {}):
+            meta = model_store.movie_meta[m_id]
+            title = meta["title"]
+            genres = [g.strip() for g in meta["genres"].split("|")] if meta.get("genres") else ["General"]
+            poster_url = get_poster_for_movie(title, meta.get("genres", ""))
+            overview = get_overview_for_movie(title, meta.get("genres", ""))
         else:
             title = f"Series #{m_id}"
             genres = ["General"]

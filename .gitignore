@@ -63,6 +63,7 @@ Thumbs.db
 *~
 
 # Artifacts & Temporary Data (Generated large Colab binaries)
+hybrid_recommender_artifacts/
 backend/artifacts/*.npy
 backend/artifacts/*.npz
 backend/artifacts/*.pkl

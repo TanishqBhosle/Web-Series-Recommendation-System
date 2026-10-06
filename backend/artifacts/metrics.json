@@ -1,0 +1,10 @@
+{
+    "MAE": 0.7386140470646892,
+    "RMSE": 0.9497467465720074,
+    "Precision@5": 0.006000000000000001,
+    "Recall@5": 0.0007344882121446172,
+    "alpha": 0.5,
+    "top_n": 50,
+    "cold_start_user_threshold": 3,
+    "cold_start_item_threshold": 5
+}
