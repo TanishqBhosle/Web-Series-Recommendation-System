@@ -46,22 +46,19 @@ Web-Series-Recommendation-System/
 │   │   └── main.py            # FastAPI application entrypoint & lifespan
 │   ├── artifacts/             # Google Colab exported model artifacts (.npy, .pkl, .json)
 │   ├── requirements.txt       # Python dependencies
-│   ├── .env.example           # Backend environment variables
-│   └── Dockerfile             # Container definition for backend
+│   └── .env.example           # Backend environment variables
 ├── frontend/
 │   ├── src/
 │   │   ├── components/        # Navbar, MovieCard, RatingStars, RecommendationRow
-│   │   ├── context/           # AuthContext (JWT session state & rating counts)
-│   │   ├── pages/             # Landing, Login, Register, Dashboard, Explore, Details, DataScientist
+│   │   ├── context/           # Session context and rating state
+│   │   ├── pages/             # Landing, Dashboard, Explore, Details, DataScientist
 │   │   ├── services/          # API client
 │   │   ├── App.jsx            # Routing and layout
 │   │   ├── main.jsx           # React root
 │   │   └── index.css          # Modern dark-mode styling and design tokens
-│   ├── package.json           # Frontend dependencies
-│   └── Dockerfile             # Container definition for frontend
+│   └── package.json           # Frontend dependencies
 ├── Web_Series_Recommendation_System.ipynb # Source Google Colab training notebook
 ├── prd.md                     # Product Requirements Document
-├── docker-compose.yml         # Container orchestration
 └── README.md                  # System documentation
 ```
 
@@ -130,14 +127,6 @@ npm install
 npm run dev
 ```
 - Application available at: `http://localhost:5173`
-
----
-
-## Running with Docker Compose
-
-```bash
-docker-compose up --build
-```
 
 ---
 
