@@ -29,6 +29,16 @@ export default function MovieCard({ movie, onRated }) {
   // Score percentage display (if recommendation score exists)
   const scorePct = movie.score !== undefined ? Math.round(movie.score * 100) : null;
 
+  const parseGenres = (item) => {
+    if (!item) return [];
+    if (Array.isArray(item.genres_list) && item.genres_list.length > 0) return item.genres_list;
+    if (Array.isArray(item.genres)) return item.genres;
+    if (typeof item.genres === 'string') return item.genres.split('|').map(s => s.trim()).filter(Boolean);
+    return [];
+  };
+
+  const displayGenres = parseGenres(movie).slice(0, 3);
+
   return (
     <div className="glass-panel" style={{
       display: 'flex',
@@ -138,7 +148,7 @@ export default function MovieCard({ movie, onRated }) {
 
         {/* Genres Chips */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-          {(movie.genres_list || (movie.genres ? movie.genres.split('|') : [])).slice(0, 3).map((g, i) => (
+          {displayGenres.map((g, i) => (
             <span key={i} style={{
               fontSize: '0.7rem',
               padding: '2px 8px',
@@ -147,7 +157,7 @@ export default function MovieCard({ movie, onRated }) {
               color: 'var(--text-muted)',
               border: '1px solid rgba(255, 255, 255, 0.08)'
             }}>
-              {g.trim()}
+              {String(g).trim()}
             </span>
           ))}
         </div>

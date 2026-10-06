@@ -132,7 +132,13 @@ export default function MovieDetails() {
 
           {/* Genres */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-            {movie.genres_list?.map((g, i) => (
+            {(Array.isArray(movie.genres_list) && movie.genres_list.length > 0
+              ? movie.genres_list
+              : (Array.isArray(movie.genres)
+                ? movie.genres
+                : (typeof movie.genres === 'string'
+                  ? movie.genres.split('|').map(s => s.trim()).filter(Boolean)
+                  : []))).map((g, i) => (
               <span key={i} style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 padding: '4px 12px',
@@ -141,7 +147,7 @@ export default function MovieDetails() {
                 color: '#e2e8f0',
                 border: '1px solid rgba(255, 255, 255, 0.1)'
               }}>
-                {g}
+                {String(g).trim()}
               </span>
             ))}
           </div>
