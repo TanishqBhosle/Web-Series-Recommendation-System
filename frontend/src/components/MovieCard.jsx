@@ -12,10 +12,6 @@ export default function MovieCard({ movie, onRated }) {
   const [imgError, setImgError] = useState(false);
 
   const handleRate = async (val) => {
-    if (!user) {
-      alert("Please login to submit ratings.");
-      return;
-    }
     try {
       setIsSubmitting(true);
       await api.submitRating(movie.movie_id, val);

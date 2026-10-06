@@ -50,8 +50,8 @@ export default function Landing() {
         </p>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
-          <Link to="/register" className="btn-primary" style={{ padding: '14px 32px', fontSize: '1.05rem' }}>
-            Get Started Free <ArrowRight size={18} />
+          <Link to="/dashboard" className="btn-primary" style={{ padding: '14px 32px', fontSize: '1.05rem' }}>
+            Explore Recommendations <ArrowRight size={18} />
           </Link>
           <Link to="/explore" className="btn-secondary" style={{ padding: '14px 28px', fontSize: '1.05rem' }}>
             Explore Catalog

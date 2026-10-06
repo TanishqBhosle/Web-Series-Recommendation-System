@@ -7,8 +7,6 @@ import Dashboard from './pages/Dashboard';
 import Explore from './pages/Explore';
 import MovieDetails from './pages/MovieDetails';
 import DataScientistDashboard from './pages/DataScientistDashboard';
-import Login from './pages/Login';
-import Register from './pages/Register';
 
 function App() {
   return (
@@ -23,8 +21,6 @@ function App() {
               <Route path="/explore" element={<Explore />} />
               <Route path="/movie/:id" element={<MovieDetails />} />
               <Route path="/data-scientist" element={<DataScientistDashboard />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>

@@ -1,28 +1,42 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 
 from app.db.database import get_db
 from app.db import crud
-from app.core.dependencies import get_current_user
+from app.core.dependencies import get_optional_current_user
 from app.models.user import User
 from app.schemas.rating import RatingCreate, RatingResponse
 
 router = APIRouter(prefix="/api/ratings", tags=["Ratings"])
 
+def ensure_default_user(db: Session) -> User:
+    user = crud.get_user_by_id(db, 1)
+    if not user:
+        user = crud.create_user(
+            db,
+            name="Explorer",
+            email="explorer@recomfusion.local",
+            password="default-no-auth",
+            is_admin=True
+        )
+    return user
+
 @router.post("", response_model=RatingResponse, status_code=status.HTTP_201_CREATED)
 def submit_rating(
     rating_in: RatingCreate,
-    current_user: User = Depends(get_current_user),
+    current_user: Optional[User] = Depends(get_optional_current_user),
     db: Session = Depends(get_db)
 ):
     movie = crud.get_movie_by_movie_id(db, rating_in.movie_id)
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
 
+    user = current_user or ensure_default_user(db)
+
     rating_obj = crud.create_or_update_rating(
         db,
-        user_id=current_user.id,
+        user_id=user.id,
         movie_id=rating_in.movie_id,
         rating_value=rating_in.rating
     )
@@ -38,10 +52,11 @@ def submit_rating(
 
 @router.get("/me", response_model=List[RatingResponse])
 def get_my_ratings(
-    current_user: User = Depends(get_current_user),
+    current_user: Optional[User] = Depends(get_optional_current_user),
     db: Session = Depends(get_db)
 ):
-    ratings = crud.get_user_ratings(db, current_user.id)
+    user = current_user or ensure_default_user(db)
+    ratings = crud.get_user_ratings(db, user.id)
     res = []
     for r in ratings:
         movie = crud.get_movie_by_movie_id(db, r.movie_id)
@@ -59,12 +74,13 @@ def get_my_ratings(
 
 @router.get("/count")
 def get_my_rating_count(
-    current_user: User = Depends(get_current_user),
+    current_user: Optional[User] = Depends(get_optional_current_user),
     db: Session = Depends(get_db)
 ):
-    count = crud.count_user_ratings(db, current_user.id)
+    user = current_user or ensure_default_user(db)
+    count = crud.count_user_ratings(db, user.id)
     return {
-        "user_id": current_user.id,
+        "user_id": user.id,
         "rating_count": count,
         "is_cold_start": count < 3,
         "threshold": 3

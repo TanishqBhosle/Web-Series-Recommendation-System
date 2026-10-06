@@ -40,10 +40,6 @@ export default function MovieDetails() {
   }, [id]);
 
   const handleRate = async (val) => {
-    if (!user) {
-      alert("Please login to submit ratings.");
-      return;
-    }
     try {
       await api.submitRating(id, val);
       setUserRating(val);
